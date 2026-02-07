@@ -17,7 +17,7 @@ const products = [
   {
     id: 3,
     name: "Laptop Backpack",
-    price: 60,
+    price: 1000,
     image: laptop
   }
 ];
