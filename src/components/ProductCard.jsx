@@ -1,30 +1,19 @@
-import { Card, CardMedia, CardContent, CardActions, Typography, Button } from "@mui/material";
+import { useCart } from '../context/CartContext';
 
-function ProductCard({ product, addToCart }) {
+export default function ProductCard({ product }) {
+  const { addToCart } = useCart();
+
   return (
-    <Card sx={{ borderRadius: 3, boxShadow: 4 }}>
-      <CardMedia
-        component="img"
-        height="180"
-        image={product.image}
-      />
-      <CardContent>
-        <Typography variant="h6">{product.name}</Typography>
-        <Typography variant="subtitle1" fontWeight="bold">
-          ${product.price}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button
-          fullWidth
-          variant="contained"
-          onClick={() => addToCart(product)}
-        >
-          Add to Cart
-        </Button>
-      </CardActions>
-    </Card>
+    <div style={{ border: '1px solid #ddd', padding: '15px', borderRadius: '8px', textAlign: 'center' }}>
+      <img src={product.image} alt={product.name} style={{ width: '100%', height: '150px', objectFit: 'cover', borderRadius: '4px' }} />
+      <h3>{product.name}</h3>
+      <p style={{ fontWeight: 'bold' }}>${product.price}</p>
+      <button 
+        onClick={() => addToCart(product)} 
+        style={{ width: '100%', padding: '10px', backgroundColor: '#007bff', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+      >
+        Add to Cart
+      </button>
+    </div>
   );
 }
-
-export default ProductCard;

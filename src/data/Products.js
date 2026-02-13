@@ -1,12 +1,13 @@
-import headphone from "../assets/headphone.jpg";
+import smartTv from "../assets/smartTv.jpg";
 import laptop from "../assets/laptop.jpg";
 import watch from "../assets/watch.jpg"
-const products = [
+import camera from "../assets/camera.jpg"
+export const products = [
   {
     id: 1,
-    name: "Wireless Headphones",
+    name: "smart TV for house",
     price: 120,
-    image: headphone
+    image: smartTv
   },
   {
     id: 2,
@@ -19,7 +20,12 @@ const products = [
     name: "Laptop Backpack",
     price: 1000,
     image: laptop
+  },
+  {
+    id: 4,
+    name: "Sont Camera",
+    price: 40,
+    image: camera
   }
 ];
-
-export default products;
+;

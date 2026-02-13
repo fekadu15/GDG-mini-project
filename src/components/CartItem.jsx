@@ -1,37 +1,31 @@
-import { Card, CardMedia, CardContent, Typography, IconButton, Stack, Button } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
+import { useCart } from '../context/CartContext';
 
-function CartItem({ item, increase, decrease, remove }) {
+export default function CartItem({ item }) {
+  const { removeFromCart, updateQuantity } = useCart();
+
   return (
-    <Card sx={{ display: "flex", borderRadius: 3, boxShadow: 3 }}>
-      <CardMedia
-        component="img"
-        image={item.image}
-        sx={{ width: 160 }}
-      />
-      <CardContent sx={{ flex: 1 }}>
-        <Typography variant="h6">{item.name}</Typography>
-        <Typography fontWeight="bold">${item.price}</Typography>
-
-        <Stack direction="row" spacing={1} alignItems="center" sx={{ mt: 2 }}>
-          <IconButton onClick={() => decrease(item.id)}>
-            <RemoveIcon />
-          </IconButton>
-          <Typography>{item.quantity}</Typography>
-          <IconButton onClick={() => increase(item.id)}>
-            <AddIcon />
-          </IconButton>
-        </Stack>
-      </CardContent>
-
-      <Stack justifyContent="center" pr={2}>
-        <Button color="error" onClick={() => remove(item.id)}>
-          Remove
-        </Button>
-      </Stack>
-    </Card>
+    <div style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid #eee', padding: '15px 0', gap: '20px' }}>
+      <img src={item.image} alt={item.name} style={{ width: '80px', height: '80px', objectFit: 'cover' }} />
+      <div style={{ flex: 1 }}>
+        <h4 style={{ margin: '0 0 5px 0' }}>{item.name}</h4>
+        <p style={{ margin: 0 }}>Price: ${item.price}</p>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <button onClick={() => updateQuantity(item.id, -1)} style={btnStyle}>-</button>
+        <span style={{ fontWeight: 'bold' }}>{item.quantity}</span>
+        <button onClick={() => updateQuantity(item.id, 1)} style={btnStyle}>+</button>
+      </div>
+      <div style={{ width: '80px', textAlign: 'right', fontWeight: 'bold' }}>
+        ${item.price * item.quantity}
+      </div>
+      <button 
+        onClick={() => removeFromCart(item.id)} 
+        style={{ color: 'red', border: 'none', background: 'none', cursor: 'pointer', fontWeight: 'bold' }}
+      >
+        Remove
+      </button>
+    </div>
   );
 }
 
-export default CartItem;
+const btnStyle = { padding: '5px 10px', cursor: 'pointer' };

@@ -1,34 +1,20 @@
-import { useState } from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import { AppBar, Toolbar, Button, Badge, Container } from "@mui/material";
-import Home from "./pages/Home";
-import Cart from "./pages/Cart";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { CartProvider } from './context/CartContext';
+import Navbar from './components/Navbar';
+import Home from './pages/Home';
+import Cart from './pages/Cart';
 
 function App() {
-  const [cart, setCart] = useState([]);
-
   return (
-    <BrowserRouter>
-      <AppBar position="static">
-        <Toolbar sx={{ justifyContent: "space-between" }}>
-          <Button color="inherit" component={Link} to="/">
-            Home
-          </Button>
-          <Button color="inherit" component={Link} to="/cart">
-            <Badge badgeContent={cart.length} color="error">
-              Cart
-            </Badge>
-          </Button>
-        </Toolbar>
-      </AppBar>
-
-      <Container sx={{ mt: 4 }}>
+    <CartProvider>
+      <Router>
+        <Navbar />
         <Routes>
-          <Route path="/" element={<Home cart={cart} setCart={setCart} />} />
-          <Route path="/cart" element={<Cart cart={cart} setCart={setCart} />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
-      </Container>
-    </BrowserRouter>
+      </Router>
+    </CartProvider>
   );
 }
 
